@@ -8,6 +8,8 @@ A modern e-commerce platform built with Django and Django REST Framework, featur
   - Custom user model with email/username login
   - JWT authentication
   - User profiles with address management
+  - Profile management (view and update)
+  - Secure password change functionality
 
 - **Product Management**
   - Product categories
@@ -20,12 +22,14 @@ A modern e-commerce platform built with Django and Django REST Framework, featur
   - Order management
   - Payment processing
   - Order status tracking
+  - Admin access to user carts and orders
 
 - **Admin Interface**
   - Modern Unfold admin theme
   - Comprehensive product management
   - Order and payment tracking
   - User management
+  - View user carts and orders
 
 ## Project Structure
 
@@ -47,27 +51,27 @@ e-commerce/
 |----------|--------|-------------|
 | `/api/auth/register/` | POST | Register a new user |
 | `/api/auth/login/` | POST | Login and get JWT tokens |
-| `/api/auth/refresh/` | POST | Refresh JWT token |
+| `/api/auth/token/refresh/` | POST | Refresh JWT token |
 
-### Catalog
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/catalog/categories/` | GET | List all categories |
-| `/api/catalog/categories/<id>/` | GET | Get category details |
-| `/api/catalog/products/` | GET | List all products |
-| `/api/catalog/products/<id>/` | GET | Get product details |
-
-### Shopping Cart
+### User Management
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/shopping-cart/` | GET | Get cart details |
-| `/api/shopping-cart/items/` | POST | Add item to cart |
-| `/api/shopping-cart/items/<id>/` | PUT | Update cart item |
-| `/api/shopping-cart/items/<id>/remove/` | DELETE | Remove item from cart |
+| `/api/profile/` | GET | Get user profile |
+| `/api/profile/` | PUT/PATCH | Update user profile |
+| `/api/change-password/` | PUT | Change user password |
 
-### Orders
+### Cart Management
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/cart/` | GET | Get current user's cart |
+| `/api/cart/items/` | POST | Add item to cart |
+| `/api/cart/items/<id>/` | PUT | Update cart item |
+| `/api/cart/items/<id>/delete/` | DELETE | Remove item from cart |
+| `/api/cart/user/<user_id>/` | GET | Get specific user's cart (Admin only) |
+
+### Order Management
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -75,6 +79,7 @@ e-commerce/
 | `/api/orders/<id>/` | GET | Get order details |
 | `/api/orders/create/` | POST | Create a new order |
 | `/api/orders/<id>/update/` | PUT | Update order status |
+| `/api/orders/user/<user_id>/` | GET | Get specific user's orders (Admin only) |
 
 ### Payments
 

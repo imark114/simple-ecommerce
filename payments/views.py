@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Payment
 from .serializers import PaymentSerializer
 from orders.models import Order
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 # Create your views here.
 
@@ -35,26 +37,43 @@ class PaymentCreateView(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PaymentListView(generics.ListAPIView):
+class PaymentListView(generics.ListCreateAPIView):
     serializer_class = PaymentSerializer
     permission_classes = [IsAuthenticated]
+    swagger_tags = ['payments']
+
+    @swagger_auto_schema(
+        operation_description="Get all payments for current user",
+        responses={200: PaymentSerializer(many=True)}
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_description="Create a new payment",
+        request_body=PaymentSerializer,
+        responses={201: PaymentSerializer}
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Payment.objects.filter(user=self.request.user)
+        return Payment.objects.filter(order__user=self.request.user)
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def perform_create(self, serializer):
+        serializer.save()
 
 class PaymentDetailView(generics.RetrieveAPIView):
     serializer_class = PaymentSerializer
     permission_classes = [IsAuthenticated]
+    swagger_tags = ['payments']
+
+    @swagger_auto_schema(
+        operation_description="Get payment details",
+        responses={200: PaymentSerializer}
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Payment.objects.filter(user=self.request.user)
-
-    def get(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Payment.objects.filter(order__user=self.request.user)

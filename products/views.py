@@ -5,49 +5,99 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer, ProductDetailSerializer
 from .filters import ProductFilter
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 # Create your views here.
 
-class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.all()
+class CategoryListView(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get_queryset(self):
+        return Category.objects.all()
 
-class CategoryDetailView(generics.RetrieveAPIView):
-    queryset = Category.objects.all()
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can create categories'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().post(request, *args, **kwargs)
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get_queryset(self):
+        return Category.objects.all()
 
-class ProductListView(generics.ListAPIView):
-    queryset = Product.objects.filter(available=True)
+    def put(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can update categories'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().put(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can update categories'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().patch(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can delete categories'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().delete(request, *args, **kwargs)
+
+class ProductListView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [AllowAny]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_class = ProductFilter
-    search_fields = ['name', 'description']
-    ordering_fields = ['price', 'created_at', 'name']
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get_queryset(self):
+        return Product.objects.all()
 
-class ProductDetailView(generics.RetrieveAPIView):
-    queryset = Product.objects.filter(available=True)
-    serializer_class = ProductDetailSerializer
-    permission_classes = [AllowAny]
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can create products'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().post(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Product.objects.all()
+
+    def put(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can update products'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().put(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can update products'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().patch(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response(
+                {'detail': 'Only admin users can delete products'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().delete(request, *args, **kwargs)

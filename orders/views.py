@@ -1,76 +1,52 @@
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Order, OrderItem
-from .serializers import OrderSerializer, OrderCreateSerializer
+from .serializers import OrderSerializer, OrderItemSerializer
 from cart.models import Cart, CartItem
+from django.contrib.auth import get_user_model
+
+CustomUser = get_user_model()
 
 # Create your views here.
 
-class OrderListView(generics.ListAPIView):
+class OrderListView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-class OrderDetailView(generics.RetrieveAPIView):
+class OrderDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
-    def get(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class OrderCreateView(generics.CreateAPIView):
-    serializer_class = OrderCreateSerializer
+class OrderItemView(generics.CreateAPIView):
+    serializer_class = OrderItemSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        cart = Cart.objects.get(user=self.request.user, is_active=True)
-        order = serializer.save(user=self.request.user)
-        
-        # Create order items from cart items
-        for cart_item in cart.items.all():
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                quantity=cart_item.quantity,
-                price=cart_item.product.price
-            )
-        
-        # Deactivate the cart
-        cart.is_active = False
-        cart.save()
+        order = Order.objects.get(id=self.kwargs['order_id'])
+        serializer.save(order=order)
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            self.perform_create(serializer)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class OrderUpdateView(generics.UpdateAPIView):
+class UserOrdersView(generics.ListAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
-    def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
-
-    def put(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, *args, **kwargs):
+        try:
+            orders = Order.objects.filter(user_id=kwargs['user_id'])
+            serializer = self.get_serializer(orders, many=True)
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            return Response(
+                {'detail': 'User not found'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )

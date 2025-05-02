@@ -12,8 +12,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('phone_number', 'address', 'city', 'state', 'country', 'postal_code')
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
+    password = serializers.CharField(write_only=True, required=False, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=False)
     profile = UserProfileSerializer(required=False)
 
     class Meta:
@@ -25,8 +25,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        # Only validate passwords if they are provided (during registration or password change)
+        if 'password' in attrs or 'password2' in attrs:
+            if 'password' not in attrs or 'password2' not in attrs:
+                raise serializers.ValidationError({"password": "Both password fields are required."})
+            if attrs['password'] != attrs['password2']:
+                raise serializers.ValidationError({"password": "Password fields didn't match."})
         return attrs
 
     def create(self, validated_data):
@@ -52,11 +56,21 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        # Remove password fields if they're not being updated
+        if 'password' not in validated_data:
+            validated_data.pop('password', None)
+            validated_data.pop('password2', None)
+        
         profile_data = validated_data.pop('profile', None)
         
         # Update user fields
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
+        
+        # Update password if provided
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
+        
         instance.save()
         
         # Update profile if provided
@@ -83,3 +97,19 @@ class CustomTokenRefreshSerializer(TokenRefreshSerializer):
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
         return data 
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(required=True)
+
+    def validate(self, attrs):
+        if attrs['new_password'] != attrs['confirm_password']:
+            raise serializers.ValidationError({"new_password": "Password fields didn't match."})
+        return attrs
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+        return value 
