@@ -69,7 +69,7 @@ e-commerce/
 | `/api/cart/items/` | POST | Add item to cart |
 | `/api/cart/items/<id>/` | PUT | Update cart item |
 | `/api/cart/items/<id>/delete/` | DELETE | Remove item from cart |
-| `/api/cart/user/<user_id>/` | GET | Get specific user's cart (Admin only) |
+| `/api/cart/user/<user_id>/` | GET | Get specific user's cart |
 
 ### Order Management
 
@@ -79,7 +79,7 @@ e-commerce/
 | `/api/orders/<id>/` | GET | Get order details |
 | `/api/orders/create/` | POST | Create a new order |
 | `/api/orders/<id>/update/` | PUT | Update order status |
-| `/api/orders/user/<user_id>/` | GET | Get specific user's orders (Admin only) |
+| `/api/orders/user/<user_id>/` | GET | Get specific user's orders |
 
 ### Payments
 

@@ -38,7 +38,7 @@ class OrderItemView(generics.CreateAPIView):
 
 class UserOrdersView(generics.ListAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         try:

@@ -47,7 +47,7 @@ class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class UserCartView(generics.RetrieveAPIView):
     serializer_class = CartSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         try:
