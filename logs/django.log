@@ -13,3 +13,4 @@ INFO 2025-05-06 19:19:24,268 autoreload 23112 124429989909952 Watching for file 
 INFO 2025-05-06 19:19:33,736 autoreload 23112 124429989909952 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/cart/views.py changed, reloading.
 INFO 2025-05-06 19:19:34,376 autoreload 23173 132742529435072 Watching for file changes with StatReloader
 INFO 2025-05-06 19:22:46,208 autoreload 23568 131681157506496 Watching for file changes with StatReloader
+INFO 2025-05-06 19:29:38,645 autoreload 25748 133872036525504 Watching for file changes with StatReloader
