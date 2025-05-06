@@ -32,7 +32,9 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, username, password, **extra_fields)
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(unique=True)
+    is_email_verified = models.BooleanField(default=False)
+    email_verification_token = models.CharField(max_length=255, null=True, blank=True)
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'

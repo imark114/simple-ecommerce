@@ -1,129 +1,162 @@
 # E-Commerce Platform
 
-A modern e-commerce platform built with Django and Django REST Framework, featuring a robust API, JWT authentication, and an admin interface powered by Unfold.
+A modern, scalable e-commerce platform built with Django and Django REST Framework. This platform provides a robust API, secure JWT authentication, and an intuitive admin interface powered by Unfold.
 
-## Features
+## 🚀 Features
 
-- **User Management**
+### User Management
+- **Authentication & Authorization**
   - Custom user model with email/username login
-  - JWT authentication
-  - User profiles with address management
-  - Profile management (view and update)
-  - Secure password change functionality
+  - JWT-based authentication with refresh tokens
+  - Role-based access control (Admin, Staff, Customer)
+  - Secure password management with validation
 
-- **Product Management**
-  - Product categories
-  - Product images with primary image support
-  - Stock management
-  - Product availability tracking
+- **Profile Management**
+  - Comprehensive user profiles
+  - Address management (shipping/billing)
+  - Profile customization
+  - Account settings
 
-- **Shopping Experience**
-  - Shopping cart functionality
-  - Order management
-  - Payment processing
+### Product Management
+- **Catalog System**
+  - Hierarchical category management
+  - Rich product information
+  - Multiple product images with primary image support
+  - Stock tracking and inventory management
+  - Product availability status
+
+- **Search & Filtering**
+  - Advanced search functionality
+  - Category-based filtering
+  - Price range filtering
+  - Sorting options
+
+### Shopping Experience
+- **Cart System**
+  - Persistent shopping cart
+  - Real-time price calculations
+  - Quantity management
+  - Cart item validation
+
+- **Order Processing**
+  - Multi-step checkout process
   - Order status tracking
-  - Admin access to user carts and orders
+  - Order history
+  - Invoice generation
 
-- **Admin Interface**
-  - Modern Unfold admin theme
-  - Comprehensive product management
-  - Order and payment tracking
+- **Payment Integration**
+  - Secure payment processing
+  - Multiple payment methods
+  - Transaction history
+  - Payment status tracking
+
+### Admin Dashboard
+- **Modern Interface**
+  - Unfold-powered admin theme
+  - Responsive design
+  - Intuitive navigation
+  - Real-time statistics
+
+- **Management Tools**
+  - Product catalog management
+  - Order processing
   - User management
-  - View user carts and orders
+  - Payment tracking
+  - Inventory control
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 e-commerce/
 ├── accounts/           # User authentication and profiles
+│   ├── models.py      # Custom user model
+│   ├── views.py       # Authentication views
+│   └── urls.py        # Auth endpoints
 ├── cart/              # Shopping cart functionality
-├── orders/            # Order processing and management
+│   ├── models.py      # Cart models
+│   ├── views.py       # Cart operations
+│   └── urls.py        # Cart endpoints
+├── orders/            # Order processing
+│   ├── models.py      # Order models
+│   ├── views.py       # Order management
+│   └── urls.py        # Order endpoints
 ├── payments/          # Payment processing
-├── products/          # Product and category management
+│   ├── models.py      # Payment models
+│   ├── views.py       # Payment operations
+│   └── urls.py        # Payment endpoints
+├── products/          # Product management
+│   ├── models.py      # Product models
+│   ├── views.py       # Product operations
+│   └── urls.py        # Product endpoints
 └── ecommerce/         # Project configuration
+    ├── settings.py    # Project settings
+    ├── urls.py        # Main URL routing
+    └── wsgi.py        # WSGI configuration
 ```
 
-## API Documentation
+## 🛠️ Setup and Installation
 
-### Authentication
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/auth/register/` | POST | Register a new user |
-| `/api/auth/login/` | POST | Login and get JWT tokens |
-| `/api/auth/token/refresh/` | POST | Refresh JWT token |
-
-### User Management
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/profile/` | GET | Get user profile |
-| `/api/profile/` | PUT/PATCH | Update user profile |
-| `/api/change-password/` | PUT | Change user password |
-
-### Cart Management
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/cart/` | GET | Get current user's cart |
-| `/api/cart/items/` | POST | Add item to cart |
-| `/api/cart/items/<id>/` | PUT | Update cart item |
-| `/api/cart/items/<id>/delete/` | DELETE | Remove item from cart |
-| `/api/cart/user/<user_id>/` | GET | Get specific user's cart |
-
-### Order Management
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/orders/` | GET | List user's orders |
-| `/api/orders/<id>/` | GET | Get order details |
-| `/api/orders/create/` | POST | Create a new order |
-| `/api/orders/<id>/update/` | PUT | Update order status |
-| `/api/orders/user/<user_id>/` | GET | Get specific user's orders |
-
-### Payments
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/payments/` | GET | List user's payments |
-| `/api/payments/create/` | POST | Create a new payment |
-| `/api/payments/<id>/` | GET | Get payment details |
-
-## Setup and Installation
-
-1. Clone the repository:
+1. **Clone the Repository**
 ```bash
 git clone <repository-url>
 cd e-commerce
 ```
 
-2. Create and activate a virtual environment:
+2. **Set Up Virtual Environment**
 ```bash
 python -m venv my_venv
 source my_venv/bin/activate  # On Windows: my_venv\Scripts\activate
 ```
 
-3. Install dependencies:
+3. **Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Set up the database:
+4. **Configure Environment Variables**
 ```bash
-python manage.py migrate
+cp .env.example .env
+# Edit .env with your configuration
 ```
 
-5. Create a superuser:
+5. **Database Setup**
 ```bash
+python manage.py migrate
 python manage.py createsuperuser
 ```
 
-6. Run the development server:
+6. **Run Development Server**
 ```bash
 python manage.py runserver
 ```
 
-## Dependencies
+## 📚 API Documentation
+
+The API documentation is available in multiple formats:
+- **Swagger UI**: `/api/docs/swagger/`
+- **ReDoc**: `/api/docs/redoc/`
+- **JSON Schema**: `/api/docs/json/`
+
+For detailed API documentation, see [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
+
+## 🛡️ Security Features
+
+- JWT-based authentication
+- Password hashing and validation
+- CSRF protection
+- XSS prevention
+- Rate limiting
+- Input validation
+- Secure headers
+
+## 🧪 Testing
+
+Run the test suite:
+```bash
+python manage.py test
+```
+
+## 📦 Dependencies
 
 - Django 5.2
 - Django REST Framework 3.16.0
@@ -135,21 +168,24 @@ python manage.py runserver
 - Django Unfold 0.8.0
 - DRF Yasg 1.21.7
 
-## API Documentation
-
-The API documentation is available at:
-- Swagger UI: `/api/docs/swagger/`
-- ReDoc: `/api/docs/redoc/`
-- JSON Schema: `/api/docs/json/`
-
-## Admin Interface
-
-Access the admin interface at `/admin/` using your superuser credentials.
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Authors
+
+- Your Name - Initial work
+
+## 🙏 Acknowledgments
+
+- Django REST Framework
+- Unfold Admin Theme
+- All contributors and supporters

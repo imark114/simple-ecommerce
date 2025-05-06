@@ -6,6 +6,7 @@ from .models import Cart, CartItem
 from .serializers import CartSerializer, CartItemSerializer
 from products.models import Product
 from django.contrib.auth import get_user_model
+from django.db.models import Prefetch
 
 CustomUser = get_user_model()
 
@@ -16,12 +17,14 @@ class CartView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart, created = Cart.objects.select_related('user').prefetch_related(
+            Prefetch('items', queryset=CartItem.objects.select_related('product'))
+        ).get_or_create(user=request.user)
         serializer = self.get_serializer(cart)
         return Response(serializer.data)
 
     def delete(self, request, *args, **kwargs):
-        cart = Cart.objects.get(user=request.user)
+        cart = Cart.objects.select_related('user').get(user=request.user)
         cart.items.all().delete()
         return Response({'message': 'Cart cleared successfully'}, status=status.HTTP_200_OK)
 
@@ -30,7 +33,7 @@ class CartItemView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart, created = Cart.objects.select_related('user').get_or_create(user=request.user)
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save(cart=cart)
@@ -42,8 +45,8 @@ class CartItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        cart = Cart.objects.get(user=self.request.user)
-        return CartItem.objects.filter(cart=cart)
+        cart = Cart.objects.select_related('user').get(user=self.request.user)
+        return CartItem.objects.select_related('product').filter(cart=cart)
 
 class UserCartView(generics.RetrieveAPIView):
     serializer_class = CartSerializer
@@ -51,7 +54,9 @@ class UserCartView(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            cart = Cart.objects.get(user_id=kwargs['user_id'])
+            cart = Cart.objects.select_related('user').prefetch_related(
+                Prefetch('items', queryset=CartItem.objects.select_related('product'))
+            ).get(user_id=kwargs['user_id'])
             serializer = self.get_serializer(cart)
             return Response(serializer.data)
         except Cart.DoesNotExist:

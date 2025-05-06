@@ -6,16 +6,21 @@ from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer, ProductDetailSerializer
 from .filters import ProductFilter
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.db.models import Prefetch
 # Create your views here.
 
 class CategoryListView(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated]
+    queryset = Category.objects.all()
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAdminUser()]
 
     def get_queryset(self):
-        return Category.objects.all()
+        return Category.objects.prefetch_related('products').all()
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_staff:
@@ -27,10 +32,15 @@ class CategoryListView(generics.ListCreateAPIView):
 
 class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated]
+    queryset = Category.objects.all()
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAdminUser()]
 
     def get_queryset(self):
-        return Category.objects.all()
+        return Category.objects.prefetch_related('products').all()
 
     def put(self, request, *args, **kwargs):
         if not request.user.is_staff:
@@ -58,10 +68,18 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class ProductListView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = ProductFilter
+    search_fields = ['name', 'description', 'category__name']
+    ordering_fields = ['price', 'created_at', 'name']
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAdminUser()]
 
     def get_queryset(self):
-        return Product.objects.all()
+        return Product.objects.select_related('category').all()
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_staff:
@@ -72,11 +90,16 @@ class ProductListView(generics.ListCreateAPIView):
         return super().post(request, *args, **kwargs)
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = ProductDetailSerializer
+    queryset = Product.objects.all()
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAdminUser()]
 
     def get_queryset(self):
-        return Product.objects.all()
+        return Product.objects.select_related('category').all()
 
     def put(self, request, *args, **kwargs):
         if not request.user.is_staff:

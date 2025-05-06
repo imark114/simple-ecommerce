@@ -19,5 +19,18 @@ urlpatterns = [
     path('api/docs/json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
 ]
 
+# Debug Toolbar URLs
+if settings.DEBUG:
+    urlpatterns += [
+        path('__debug__/', include('debug_toolbar.urls')),
+    ]
+
+# Silk Profiling URLs
+if settings.DEBUG:
+    urlpatterns += [
+        path('silk/', include('silk.urls', namespace='silk')),
+    ]
+
+# Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

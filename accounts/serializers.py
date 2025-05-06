@@ -29,8 +29,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if 'password' in attrs or 'password2' in attrs:
             if 'password' not in attrs or 'password2' not in attrs:
                 raise serializers.ValidationError({"password": "Both password fields are required."})
-            if attrs['password'] != attrs['password2']:
-                raise serializers.ValidationError({"password": "Password fields didn't match."})
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
         return attrs
 
     def create(self, validated_data):

@@ -1,0 +1,15 @@
+INFO 2025-05-06 19:14:06,800 autoreload 22211 128123368994240 Watching for file changes with StatReloader
+INFO 2025-05-06 19:14:13,094 autoreload 22211 128123368994240 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/ecommerce/urls.py changed, reloading.
+INFO 2025-05-06 19:14:13,679 autoreload 22292 127406565156288 Watching for file changes with StatReloader
+INFO 2025-05-06 19:14:54,013 autoreload 22292 127406565156288 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/ecommerce/urls.py changed, reloading.
+INFO 2025-05-06 19:14:54,847 autoreload 22411 129991093327296 Watching for file changes with StatReloader
+INFO 2025-05-06 19:15:29,091 autoreload 22411 129991093327296 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/ecommerce/settings.py changed, reloading.
+INFO 2025-05-06 19:15:29,950 autoreload 22485 134491441247680 Watching for file changes with StatReloader
+INFO 2025-05-06 19:15:56,547 autoreload 22768 140222460110272 Watching for file changes with StatReloader
+INFO 2025-05-06 19:19:11,603 autoreload 22768 140222460110272 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/products/views.py changed, reloading.
+INFO 2025-05-06 19:19:12,206 autoreload 23034 139127722812864 Watching for file changes with StatReloader
+INFO 2025-05-06 19:19:23,692 autoreload 23034 139127722812864 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/orders/views.py changed, reloading.
+INFO 2025-05-06 19:19:24,268 autoreload 23112 124429989909952 Watching for file changes with StatReloader
+INFO 2025-05-06 19:19:33,736 autoreload 23112 124429989909952 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/cart/views.py changed, reloading.
+INFO 2025-05-06 19:19:34,376 autoreload 23173 132742529435072 Watching for file changes with StatReloader
+INFO 2025-05-06 19:22:46,208 autoreload 23568 131681157506496 Watching for file changes with StatReloader

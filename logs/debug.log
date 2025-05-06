@@ -1,0 +1,115 @@
+INFO 2025-05-06 18:32:51,020 autoreload 15314 129430264972736 Watching for file changes with StatReloader
+INFO 2025-05-06 18:55:28,387 autoreload 18476 136727924610496 Watching for file changes with StatReloader
+ERROR 2025-05-06 18:55:44,404 exception 18476 136727819712192 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/http/request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2025-05-06 18:55:44,430 log 18476 136727819712192 Bad Request: /api/docs/swagger/
+WARNING 2025-05-06 18:55:44,430 basehttp 18476 136727819712192 "GET /api/docs/swagger/ HTTP/1.1" 400 83242
+ERROR 2025-05-06 18:57:15,182 exception 18476 136727819712192 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/http/request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2025-05-06 18:57:15,204 log 18476 136727819712192 Bad Request: /api/docs/swagger/
+WARNING 2025-05-06 18:57:15,204 basehttp 18476 136727819712192 "GET /api/docs/swagger/ HTTP/1.1" 400 83242
+ERROR 2025-05-06 18:57:15,962 exception 18476 136727819712192 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/http/request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2025-05-06 18:57:15,981 log 18476 136727819712192 Bad Request: /api/docs/swagger/
+WARNING 2025-05-06 18:57:15,982 basehttp 18476 136727819712192 "GET /api/docs/swagger/ HTTP/1.1" 400 83242
+INFO 2025-05-06 18:58:41,673 autoreload 19187 123748546508224 Watching for file changes with StatReloader
+ERROR 2025-05-06 18:58:44,469 exception 19187 123748441126592 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/http/request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2025-05-06 18:58:44,496 log 19187 123748441126592 Bad Request: /api/docs/swagger/
+WARNING 2025-05-06 18:58:44,496 basehttp 19187 123748441126592 "GET /api/docs/swagger/ HTTP/1.1" 400 83242
+INFO 2025-05-06 19:00:08,846 autoreload 19607 133404693689792 Watching for file changes with StatReloader
+ERROR 2025-05-06 19:00:11,449 exception 19607 133404588766912 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/http/request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2025-05-06 19:00:11,474 log 19607 133404588766912 Bad Request: /api/docs/swagger/
+WARNING 2025-05-06 19:00:11,475 basehttp 19607 133404588766912 "GET /api/docs/swagger/ HTTP/1.1" 400 83242
+ERROR 2025-05-06 19:00:12,261 exception 19607 133404588766912 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/rakib-khan/Volume(D)/Django/Projects/e-commerce/my_venv/lib/python3.12/site-packages/django/http/request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2025-05-06 19:00:12,280 log 19607 133404588766912 Bad Request: /api/docs/swagger/
+WARNING 2025-05-06 19:00:12,281 basehttp 19607 133404588766912 "GET /api/docs/swagger/ HTTP/1.1" 400 83242
+INFO 2025-05-06 19:06:58,245 autoreload 21676 132358835000768 Watching for file changes with StatReloader
+INFO 2025-05-06 19:07:00,777 basehttp 21676 132358728578752 "GET /api/docs/swagger/ HTTP/1.1" 200 1582
+INFO 2025-05-06 19:07:00,988 basehttp 21676 132358728578752 "GET /api/docs/swagger/?format=openapi HTTP/1.1" 200 23986
+INFO 2025-05-06 19:07:17,859 basehttp 21676 132358728578752 "GET /api/docs/swagger/ HTTP/1.1" 200 1582
+INFO 2025-05-06 19:07:18,007 basehttp 21676 132358728578752 "GET /api/docs/swagger/?format=openapi HTTP/1.1" 200 23986
+INFO 2025-05-06 19:07:18,863 basehttp 21676 132358728578752 "GET /api/docs/swagger/ HTTP/1.1" 200 1582
+INFO 2025-05-06 19:07:19,014 basehttp 21676 132358728578752 "GET /api/docs/swagger/?format=openapi HTTP/1.1" 200 23986
+INFO 2025-05-06 19:07:19,626 basehttp 21676 132358728578752 "GET /api/docs/swagger/ HTTP/1.1" 200 1582
+INFO 2025-05-06 19:07:19,811 basehttp 21676 132358728578752 "GET /api/docs/swagger/?format=openapi HTTP/1.1" 200 23986
+INFO 2025-05-06 19:07:34,997 basehttp 21676 132358728578752 "GET /api/catalog/products/ HTTP/1.1" 200 9517
+INFO 2025-05-06 19:07:49,044 basehttp 21676 132358728578752 "GET /api/catalog/products/?category=toyota&available=unknown&min_price=&max_price= HTTP/1.1" 200 8825
+INFO 2025-05-06 19:08:16,735 basehttp 21676 132358728578752 "GET /api/catalog/products/?category=car&available=unknown&min_price=&max_price= HTTP/1.1" 200 10211
+INFO 2025-05-06 19:13:48,177 autoreload 21676 132358835000768 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/accounts/urls.py changed, reloading.
+INFO 2025-05-06 19:13:48,865 autoreload 22088 133975684810176 Watching for file changes with StatReloader
+INFO 2025-05-06 19:14:06,358 autoreload 22088 133975684810176 /home/rakib-khan/Volume(D)/Django/Projects/e-commerce/ecommerce/settings.py changed, reloading.
